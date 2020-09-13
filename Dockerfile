@@ -23,7 +23,7 @@ ENV TZ=Asia/Shanghai
 # 修改源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # 更新源
-RUN apk upgrade
+RUN apk update
 # 同步时间
 RUN apk add -U tzdata \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
@@ -37,7 +37,7 @@ RUN set -ex && \
     apk --no-cache add ca-certificates && \
     mkdir -p /usr/bin/v2ray && \
     tar xvfz /tmp/v2ray.tgz -C /usr/bin/v2ray && \
-    rm -rf /tmp/v2ray.tgz && \
+    rm -rf /tmp/v2ray.tgz /usr/bin/v2ray/*.sig /usr/bin/v2ray/doc /usr/bin/v2ray/*.json /usr/bin/v2ray/*.dat /usr/bin/v2ray/sys* && \
     chmod +x /usr/bin/v2ray/v2ctl && \
     chmod +x /usr/bin/v2ray/v2ray
 
