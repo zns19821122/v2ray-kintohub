@@ -46,4 +46,5 @@ RUN set -ex && \
 ENV PATH /usr/bin/v2ray:$PATH
 
 # 运行v2ray
-CMD ["v2ray", "-config=$CONFIG"]
+CMD nohup tor & \
+    v2ray -config $CONFIG
