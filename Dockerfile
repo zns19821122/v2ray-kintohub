@@ -34,7 +34,7 @@ COPY --from=builder /tmp/v2ray.tgz /tmp
 
 # 授予文件权限
 RUN set -ex && \
-    apk --no-cache add ca-certificates && \
+    apk --no-cache add tor ca-certificates && \
     mkdir -p /usr/bin/v2ray && \
     tar xvfz /tmp/v2ray.tgz -C /usr/bin/v2ray && \
     rm -rf /tmp/v2ray.tgz /usr/bin/v2ray/*.sig /usr/bin/v2ray/doc /usr/bin/v2ray/*.json /usr/bin/v2ray/*.dat /usr/bin/v2ray/sys* && \
