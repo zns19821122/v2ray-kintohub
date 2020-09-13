@@ -33,6 +33,3 @@ cat <<-EOF > /etc/v2ray/config.json
   ]
 }
 EOF
-# start tor and v2ray
-nohup tor &
-/usr/bin/v2ray/v2ray -config=/etc/v2ray/config.json
