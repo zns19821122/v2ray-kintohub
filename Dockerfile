@@ -28,14 +28,10 @@ RUN apk update
 RUN apk add -U tzdata \
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
 && echo ${TZ} > /etc/timezone
-
+# v2ray配置文件
+ENV CONFIG=https://raw.githubusercontent.com/danxiaonuo/v2ray-kintohub/master/config.json
 # 拷贝v2ray二进制文件至临时目录
 COPY --from=builder /tmp/v2ray.tgz /tmp
-
-# 增加脚本
-ADD configure.sh /configure.sh
-# 运行创建配置文件
-RUN chmod +x /configure.sh
 
 # 授予文件权限
 RUN set -ex && \
@@ -50,4 +46,4 @@ RUN set -ex && \
 ENV PATH /usr/bin/v2ray:$PATH
 
 # 运行v2ray
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+CMD ["v2ray", "-config=$CONFIG"]
