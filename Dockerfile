@@ -32,6 +32,11 @@ RUN apk add -U tzdata \
 # 拷贝v2ray二进制文件至临时目录
 COPY --from=builder /tmp/v2ray.tgz /tmp
 
+# 增加脚本
+ADD configure.sh /configure.sh
+# 运行创建配置文件
+RUN chmod +x /configure.sh
+
 # 授予文件权限
 RUN set -ex && \
     apk --no-cache add tor ca-certificates && \
@@ -44,9 +49,5 @@ RUN set -ex && \
 # 设置环境变量
 ENV PATH /usr/bin/v2ray:$PATH
 
-# 增加脚本
-ADD configure.sh /configure.sh
-# 授权脚本权限
-RUN chmod +x /configure.sh
 # 运行v2ray
-CMD /configure.sh
+CMD ["v2ray", "-config=/etc/v2ray/config.json"]
